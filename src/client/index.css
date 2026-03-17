@@ -1,0 +1,18 @@
+@import 'tailwindcss';
+
+:root {
+  --green: #7ed957;
+  --green-dim: #5cb83a;
+  --green-glow: rgba(126, 217, 87, 0.15);
+  --cyan: #00d4ff;
+  --purple: #a78bfa;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --bg: #0a0a0a;
+  --bg-card: #111111;
+  --bg-hover: #1a1a1a;
+  --border: #222222;
+  --text: #e5e5e5;
+  --text-dim: #888888;
+  --text-muted: #555555;
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "mcp0n",
+  "post": {
+    "dir": "dist/client",
+    "entrypoints": {
+      "default": {
+        "inline": true,
+        "entry": "splash.html"
+      },
+      "game": {
+        "entry": "game.html"
+      }
+    }
+  },
+  "server": {
+    "dir": "dist/server",
+    "entry": "index.cjs"
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Create a new post",
+        "description": "mcp0n",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/post-create"
+      },
+      {
+        "label": "Example form",
+        "description": "Show a simple form",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/example-form"
+      }
+    ]
+  },
+  "forms": {
+    "exampleForm": "/internal/form/example-submit"
+  },
+  "triggers": {
+    "onAppInstall": "/internal/triggers/on-app-install",
+    "onPostCreate": "/internal/triggers/on-post-create",
+    "onCommentCreate": "/internal/triggers/on-comment-create"
+  },
+  "scheduler": {
+    "jobs": {
+      "scan": "/internal/jobs/scan",
+      "generate": "/internal/jobs/generate",
+      "post": "/internal/jobs/post",
+      "track": "/internal/jobs/track"
+    }
+  },
+  "fetchDomains": ["0nmcp.com", "pwujhhmlrtxjmjzyttwn.supabase.co"],
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build"
+  }
+}
