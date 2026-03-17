@@ -5,7 +5,7 @@ import type {
   OnCommentCreateRequest,
   TriggerResponse,
 } from '@devvit/web/shared';
-import { context, redis, scheduler } from '@devvit/web/server';
+import { context, redis } from '@devvit/web/server';
 import { createPost } from '../core/post';
 import { DEFAULT_CONFIG, DEFAULT_TARGETS } from '../../shared/types';
 
@@ -22,16 +22,12 @@ triggers.post('/on-app-install', async (c) => {
     await redis.set('config', JSON.stringify(DEFAULT_CONFIG));
     await redis.set('targets', JSON.stringify(DEFAULT_TARGETS));
 
-    // Schedule cron jobs
-    await scheduler.runJob({ name: 'scan', cron: '*/30 * * * *' });
-    await scheduler.runJob({ name: 'generate', cron: '0 */2 * * *' });
-    await scheduler.runJob({ name: 'post', cron: '0 */4 * * *' });
-    await scheduler.runJob({ name: 'track', cron: '0 * * * *' });
+    // Cron jobs are declared in devvit.json — no manual scheduling needed
 
     return c.json<TriggerResponse>(
       {
         status: 'success',
-        message: `mcp0n installed in r/${context.subredditName} — post ${post.id}, 4 jobs scheduled (trigger: ${input.type})`,
+        message: `mcp0n installed in r/${context.subredditName} — post ${post.id}, cron jobs active (trigger: ${input.type})`,
       },
       200
     );

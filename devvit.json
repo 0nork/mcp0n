@@ -17,6 +17,17 @@
     "dir": "dist/server",
     "entry": "index.cjs"
   },
+  "permissions": {
+    "http": {
+      "enable": true,
+      "domains": ["0nmcp.com", "pwujhhmlrtxjmjzyttwn.supabase.co"]
+    },
+    "redis": true,
+    "reddit": {
+      "enable": true,
+      "scope": "moderator"
+    }
+  },
   "menu": {
     "items": [
       {
@@ -44,14 +55,25 @@
     "onCommentCreate": "/internal/triggers/on-comment-create"
   },
   "scheduler": {
-    "jobs": {
-      "scan": "/internal/jobs/scan",
-      "generate": "/internal/jobs/generate",
-      "post": "/internal/jobs/post",
-      "track": "/internal/jobs/track"
+    "tasks": {
+      "scan": {
+        "endpoint": "/internal/jobs/scan",
+        "cron": "*/30 * * * *"
+      },
+      "generate": {
+        "endpoint": "/internal/jobs/generate",
+        "cron": "0 */2 * * *"
+      },
+      "post": {
+        "endpoint": "/internal/jobs/post",
+        "cron": "0 */4 * * *"
+      },
+      "track": {
+        "endpoint": "/internal/jobs/track",
+        "cron": "0 * * * *"
+      }
     }
   },
-  "fetchDomains": ["0nmcp.com", "pwujhhmlrtxjmjzyttwn.supabase.co"],
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build"
